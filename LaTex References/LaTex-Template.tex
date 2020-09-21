@@ -1,0 +1,667 @@
+\documentclass[10pt,letterpaper,landscape]{article}
+
+% Packages
+\usepackage{fancyhdr}           % For header and footer
+\usepackage{multicol}           % Allows multicols in tables
+\usepackage{tabularx}           % Intelligent column widths
+\usepackage{tabulary}           % Used in header and footer
+\usepackage{hhline}             % Border under tables
+\usepackage{graphicx}           % For images
+\usepackage{xcolor}             % For hex colours
+\usepackage[utf8x]{inputenc}    % For unicode character support
+\usepackage[T1]{fontenc}        % Without this we get weird character replacements
+\usepackage{colortbl}           % For coloured tables
+\usepackage{setspace}           % For line height
+\usepackage{lastpage}           % Needed for total page number
+\usepackage{seqsplit}           % Splits long words.
+%\usepackage{opensans}          % Can't make this work so far. Shame. Would be lovely.
+\usepackage[normalem]{ulem}     % For underlining links
+% Most of the following are not required for the majority
+% of cheat sheets but are needed for some symbol support.
+\usepackage{amsmath}            % Symbols
+\usepackage{MnSymbol}           % Symbols
+\usepackage{wasysym}            % Symbols
+%\usepackage[english,german,french,spanish,italian]{babel}              % Languages
+
+% Document Info
+\author{Casey J. Sullivan}
+\pdfinfo{
+  /Title (C\# Cheat Sheet.pdf)
+  /Creator (SullTec)
+  /Author (Casey J. Sullivan)
+  /Subject (C\# Cheat Sheet)
+}
+
+% Lengths and widths
+\addtolength{\textwidth}{6cm}
+\addtolength{\textheight}{-1cm}
+\addtolength{\hoffset}{-3cm}
+\addtolength{\voffset}{-2cm}
+\setlength{\tabcolsep}{0.2cm} % Space between columns
+\setlength{\headsep}{-12pt} % Reduce space between header and content
+\setlength{\headheight}{85pt} % If less, LaTeX automatically increases it
+\renewcommand{\footrulewidth}{0pt} % Remove footer line
+\renewcommand{\headrulewidth}{0pt} % Remove header line
+\renewcommand{\seqinsert}{\ifmmode\allowbreak\else\-\fi} % Hyphens in seqsplit
+% This two commands together give roughly
+% the right line height in the tables
+\renewcommand{\arraystretch}{1.3}
+\onehalfspacing
+
+% Commands
+\newcommand{\SetRowColor}[1]{\noalign{\gdef\RowColorName{#1}}\rowcolor{\RowColorName}} % Shortcut for row colour
+\newcommand{\mymulticolumn}[3]{\multicolumn{#1}{>{\columncolor{\RowColorName}}#2}{#3}} % For coloured multi-cols
+\newcolumntype{x}[1]{>{\raggedright}p{#1}} % New column types for ragged-right paragraph columns
+\newcommand{\tn}{\tabularnewline} % Required as custom column type in use
+
+% Font and Colours
+\definecolor{HeadBackground}{HTML}{333333}
+\definecolor{FootBackground}{HTML}{666666}
+\definecolor{TextColor}{HTML}{333333}
+\definecolor{DarkBackground}{HTML}{00796B}
+\definecolor{LightBackground}{HTML}{D3E8E5}
+\renewcommand{\familydefault}{\sfdefault}
+\color{TextColor}
+
+% Header and Footer
+\pagestyle{fancy}
+
+\fancyhead{} % Set header to blank
+\fancyhead[L]{
+  \noindent
+  \begin{multicols}{1}
+    \columnbreak
+    \begin{tabulary}{11cm}{L}
+      \vspace{-2pt}\large{\textbf{\textcolor{DarkBackground}{\textrm{C\# Cheat Sheet}}}} 
+    \end{tabulary}
+  \end{multicols}
+}
+
+\fancyfoot{} % Set footer to blank
+\fancyfoot[L]{
+  \footnotesize
+  \noindent
+  \begin{multicols}{1}
+    \begin{tabulary}{11cm}{L}
+      \SetRowColor{FootBackground}
+      \mymulticolumn{0}{p{11cm}}{
+        \textbf{\textcolor{white}{Cheat Sheet}}
+        \textcolor{lightgray}{by} 
+        \textcolor{white}{Casey J. Sullivan}
+      }  \\
+      \vspace{-2pt}Page {\thepage} of \pageref{LastPage}.
+    \end{tabulary}
+  \end{multicols}
+}
+
+\begin{document}
+\raggedright
+\raggedcolumns
+
+% Set font size to small. Switch to any value
+% from this page to resize cheat sheet text:
+% www.emerson.emory.edu/services/latex/latex_169.html
+\footnotesize % Small font.
+
+\begin{multicols*}{3}
+
+  \begin{tabularx}{8.4cm}{x{1.2 cm} x{6.8 cm} }
+    \SetRowColor{DarkBackground}
+    \mymulticolumn{2}{x{8.4cm}}{\textbf{\textcolor{white}{Data Types}}}  \tn
+    % Row 0
+    \SetRowColor{LightBackground}
+    bool               & Boolean value \tn
+    % Row Count 1 (+ 1)
+    % Row 1
+    \SetRowColor{white}
+    byte               & 8-bit unsigned integer \tn
+    % Row Count 2 (+ 1)
+    % Row 2
+    \SetRowColor{LightBackground}
+    char               & 16-bit Unicode character \tn
+    % Row Count 3 (+ 1)
+    % Row 3
+    \SetRowColor{white}
+    \seqsplit{decimal} & 128-bit precise decimal values with 28-29 significant digits \tn
+    % Row Count 5 (+ 2)
+    % Row 4
+    \SetRowColor{LightBackground}
+    \seqsplit{double}  & 64-bit double-precision floating point \tn
+    % Row Count 7 (+ 2)
+    % Row 5
+    \SetRowColor{white}
+    float              & 32-bit single-precision floating point \tn
+    % Row Count 9 (+ 2)
+    % Row 6
+    \SetRowColor{LightBackground}
+    int                & 32-bit signed integer \tn
+    % Row Count 10 (+ 1)
+    % Row 7
+    \SetRowColor{white}
+    long               & 64-bit signed integer \tn
+    % Row Count 11 (+ 1)
+    % Row 8
+    \SetRowColor{LightBackground}
+    \seqsplit{object}  & Base type for all other types \tn
+    % Row Count 12 (+ 1)
+    % Row 9
+    \SetRowColor{white}
+    sbyte              & 8-bit signed integer \tn
+    % Row Count 13 (+ 1)
+    % Row 10
+    \SetRowColor{LightBackground}
+    short              & 16-bit signed integer \tn
+    % Row Count 14 (+ 1)
+    % Row 11
+    \SetRowColor{white}
+    \seqsplit{string}  & String value \tn
+    % Row Count 15 (+ 1)
+    % Row 12
+    \SetRowColor{LightBackground}
+    uint               & 32-bit unsigned integer \tn
+    % Row Count 16 (+ 1)
+    % Row 13
+    \SetRowColor{white}
+    ulong              & 64-bit unsigned integer \tn
+    % Row Count 17 (+ 1)
+    % Row 14
+    \SetRowColor{LightBackground}
+    \seqsplit{ushort}  & 16-bit unsigned integer \tn
+    % Row Count 18 (+ 1)
+    \hhline{>{\arrayrulecolor{DarkBackground}}--}
+  \end{tabularx}
+  \par\addvspace{1.3em}
+
+  \begin{tabularx}{8.4cm}{X}
+    \SetRowColor{DarkBackground}
+    \mymulticolumn{1}{x{8.4cm}}{\textbf{\textcolor{white}{Type Conversion Methods}}}  \tn
+    % Row 0
+    \SetRowColor{LightBackground}
+    \mymulticolumn{1}{x{8.4cm}}{ToBoolean} \tn
+    % Row Count 1 (+ 1)
+    % Row 1
+    \SetRowColor{white}
+    \mymulticolumn{1}{x{8.4cm}}{ToByte} \tn
+    % Row Count 2 (+ 1)
+    % Row 2
+    \SetRowColor{LightBackground}
+    \mymulticolumn{1}{x{8.4cm}}{ToChar} \tn
+    % Row Count 3 (+ 1)
+    % Row 3
+    \SetRowColor{white}
+    \mymulticolumn{1}{x{8.4cm}}{ToDateTime} \tn
+    % Row Count 4 (+ 1)
+    % Row 4
+    \SetRowColor{LightBackground}
+    \mymulticolumn{1}{x{8.4cm}}{ToDecimal} \tn
+    % Row Count 5 (+ 1)
+    % Row 5
+    \SetRowColor{white}
+    \mymulticolumn{1}{x{8.4cm}}{ToDouble} \tn
+    % Row Count 6 (+ 1)
+    % Row 6
+    \SetRowColor{LightBackground}
+    \mymulticolumn{1}{x{8.4cm}}{ToInt16} \tn
+    % Row Count 7 (+ 1)
+    % Row 7
+    \SetRowColor{white}
+    \mymulticolumn{1}{x{8.4cm}}{ToInt32} \tn
+    % Row Count 8 (+ 1)
+    % Row 8
+    \SetRowColor{LightBackground}
+    \mymulticolumn{1}{x{8.4cm}}{ToInt64} \tn
+    % Row Count 9 (+ 1)
+    % Row 9
+    \SetRowColor{white}
+    \mymulticolumn{1}{x{8.4cm}}{ToSbyte} \tn
+    % Row Count 10 (+ 1)
+    % Row 10
+    \SetRowColor{LightBackground}
+    \mymulticolumn{1}{x{8.4cm}}{ToSingle} \tn
+    % Row Count 11 (+ 1)
+    % Row 11
+    \SetRowColor{white}
+    \mymulticolumn{1}{x{8.4cm}}{ToString} \tn
+    % Row Count 12 (+ 1)
+    % Row 12
+    \SetRowColor{LightBackground}
+    \mymulticolumn{1}{x{8.4cm}}{ToType} \tn
+    % Row Count 13 (+ 1)
+    % Row 13
+    \SetRowColor{white}
+    \mymulticolumn{1}{x{8.4cm}}{ToUInt16} \tn
+    % Row Count 14 (+ 1)
+    % Row 14
+    \SetRowColor{LightBackground}
+    \mymulticolumn{1}{x{8.4cm}}{ToUInt32} \tn
+    % Row Count 15 (+ 1)
+    % Row 15
+    \SetRowColor{white}
+    \mymulticolumn{1}{x{8.4cm}}{ToUInt64} \tn
+    % Row Count 16 (+ 1)
+    \hhline{>{\arrayrulecolor{DarkBackground}}-}
+  \end{tabularx}
+  \par\addvspace{1.3em}
+
+  \begin{tabularx}{8.4cm}{x{3.76 cm} x{4.24 cm} }
+    \SetRowColor{DarkBackground}
+    \mymulticolumn{2}{x{8.4cm}}{\textbf{\textcolor{white}{Naming Conventions}}}  \tn
+    % Row 0
+    \SetRowColor{LightBackground}
+    Class            & MyClass \tn
+    % Row Count 1 (+ 1)
+    % Row 1
+    \SetRowColor{white}
+    Method           & MyMethod \tn
+    % Row Count 2 (+ 1)
+    % Row 2
+    \SetRowColor{LightBackground}
+    Local variable   & myLocalVariable \tn
+    % Row Count 3 (+ 1)
+    % Row 3
+    \SetRowColor{white}
+    Private variable & \_myPrivateVariable \tn
+    % Row Count 4 (+ 1)
+    % Row 4
+    \SetRowColor{LightBackground}
+    Constant         & MyConstant \tn
+    % Row Count 5 (+ 1)
+    \hhline{>{\arrayrulecolor{DarkBackground}}--}
+  \end{tabularx}
+  \par\addvspace{1.3em}
+
+  \begin{tabularx}{8.4cm}{X}
+    \SetRowColor{DarkBackground}
+    \mymulticolumn{1}{x{8.4cm}}{\textbf{\textcolor{white}{Arrays}}}  \tn
+    % Row 0
+    \SetRowColor{LightBackground}
+    \mymulticolumn{1}{x{8.4cm}}{int{[}{]} array = new int{[}{]} \{1, 2, 3\}} \tn
+    % Row Count 1 (+ 1)
+    % Row 1
+    \SetRowColor{white}
+    \mymulticolumn{1}{x{8.4cm}}{int{[}{]} array = \{1, 2, 3\}} \tn
+    % Row Count 2 (+ 1)
+    % Row 2
+    \SetRowColor{LightBackground}
+    \mymulticolumn{1}{x{8.4cm}}{var array = new int{[}{]} \{1, 2, 3\}} \tn
+    % Row Count 3 (+ 1)
+    % Row 3
+    \SetRowColor{white}
+    \mymulticolumn{1}{x{8.4cm}}{int{[}{]} array = new int{[}3{]}} \tn
+    % Row Count 4 (+ 1)
+    \hhline{>{\arrayrulecolor{DarkBackground}}-}
+  \end{tabularx}
+  \par\addvspace{1.3em}
+
+  \begin{tabularx}{8.4cm}{x{2.4 cm} x{5.6 cm} }
+    \SetRowColor{DarkBackground}
+    \mymulticolumn{2}{x{8.4cm}}{\textbf{\textcolor{white}{Statements}}}  \tn
+    % Row 0
+    \SetRowColor{LightBackground}
+    if-else                      & if (true) \{...\} \{\{nl\}\} else if (true) \{...\} \{\{nl\}\} else \{...\} \tn
+    % Row Count 3 (+ 3)
+    % Row 1
+    \SetRowColor{white}
+    switch                       & switch (var) \{\{\{nl\}\}case 1: break; \{\{nl\}\} default: break; \} \tn
+    % Row Count 6 (+ 3)
+    % Row 2
+    \SetRowColor{LightBackground}
+    for                          & for (int i =1; i \textless{} 5; i++) \{...\} \tn
+    % Row Count 8 (+ 2)
+    % Row 3
+    \SetRowColor{white}
+    foreach-in                   & foreach (int item in array) \{...\} \tn
+    % Row Count 10 (+ 2)
+    % Row 4
+    \SetRowColor{LightBackground}
+    while                        & while (true) \{...\} \tn
+    % Row Count 11 (+ 1)
+    % Row 5
+    \SetRowColor{white}
+    do... while                  & do \{...\} \{\{nl\}\} while (true); \tn
+    % Row Count 13 (+ 2)
+    % Row 6
+    \SetRowColor{LightBackground}
+    \seqsplit{try-catch-finally} & try \{...\} \{\{nl\}\} catch (Exception e) \{...\} \{\{nl\}\} catch \{...\} \{\{nl\}\} finally \{...\} \tn
+    % Row Count 16 (+ 3)
+    \hhline{>{\arrayrulecolor{DarkBackground}}--}
+  \end{tabularx}
+  \par\addvspace{1.3em}
+
+  \begin{tabularx}{8.4cm}{x{2.28 cm} x{2.432 cm} x{2.888 cm} }
+    \SetRowColor{DarkBackground}
+    \mymulticolumn{3}{x{8.4cm}}{\textbf{\textcolor{white}{Classes}}}  \tn
+    % Row 0
+    \SetRowColor{LightBackground}
+    Class                             & public class Dog \{...\}        & \tn
+    % Row Count 2 (+ 2)
+    % Row 1
+    \SetRowColor{white}
+    Inheritance                       & public class Dog: Pet \{...\}   & \tn
+    % Row Count 5 (+ 3)
+    % Row 2
+    \SetRowColor{LightBackground}
+    Constructor (no parameters)       & public Dog () \{...\}           & Constructors can co-exist \tn
+    % Row Count 8 (+ 3)
+    % Row 3
+    \SetRowColor{white}
+    Constructor (one parameter)       & public Dog (string var) \{...\} & Constructors can co-exist \tn
+    % Row Count 11 (+ 3)
+    % Row 4
+    \SetRowColor{LightBackground}
+    Field                             & public string name              & \tn
+    % Row Count 13 (+ 2)
+    % Row 5
+    \SetRowColor{white}
+    Static Class                      & public static class Dog \{...\} & Must only have static members \tn
+    % Row Count 16 (+ 3)
+    % Row 6
+    \SetRowColor{LightBackground}
+    Static Member                     & public static int = 1           & \tn
+    % Row Count 18 (+ 2)
+    % Row 7
+    \SetRowColor{white}
+    Finalizer \seqsplit{(destructor)} & \textasciitilde{}Dog () \{...\} & Cannot have modifiers or parameters \tn
+    % Row Count 21 (+ 3)
+    \hhline{>{\arrayrulecolor{DarkBackground}}---}
+  \end{tabularx}
+  \par\addvspace{1.3em}
+
+  \begin{tabularx}{8.4cm}{x{2.48 cm} x{5.52 cm} }
+    \SetRowColor{DarkBackground}
+    \mymulticolumn{2}{x{8.4cm}}{\textbf{\textcolor{white}{Access Modifiers}}}  \tn
+    % Row 0
+    \SetRowColor{LightBackground}
+    public             & Accessible by any other code in the same assembly or another assembly that references it \tn
+    % Row Count 4 (+ 4)
+    % Row 1
+    \SetRowColor{white}
+    private            & Only accessible by code in the same class or struct \tn
+    % Row Count 6 (+ 2)
+    % Row 2
+    \SetRowColor{LightBackground}
+    protected          & Only accessible by code in the same class or struct, or in a derived class \tn
+    % Row Count 9 (+ 3)
+    % Row 3
+    \SetRowColor{white}
+    internal           & Accessible by any code in the same assembly, but not from another assembly \tn
+    % Row Count 12 (+ 3)
+    % Row 4
+    \SetRowColor{LightBackground}
+    protected internal & Accessible by any code in the same assembly, or by any derived class in another assembly \tn
+    % Row Count 16 (+ 4)
+    \hhline{>{\arrayrulecolor{DarkBackground}}--}
+  \end{tabularx}
+  \par\addvspace{1.3em}
+
+  \begin{tabularx}{8.4cm}{x{1.36 cm} x{6.64 cm} }
+    \SetRowColor{DarkBackground}
+    \mymulticolumn{2}{x{8.4cm}}{\textbf{\textcolor{white}{Other Modifiers}}}  \tn
+    % Row 0
+    \SetRowColor{LightBackground}
+    \seqsplit{abstract} & Indicates that a class is intended only to be a base class of other classes \tn
+    % Row Count 3 (+ 3)
+    % Row 1
+    \SetRowColor{white}
+    async               & Indicates that the modified method, lambda expression, or anonymous method is asynchronous \tn
+    % Row Count 6 (+ 3)
+    % Row 2
+    \SetRowColor{LightBackground}
+    const               & Specifies that the value of the field or the local variable cannot be modified \tn
+    % Row Count 9 (+ 3)
+    % Row 3
+    \SetRowColor{white}
+    event               & Declares an event \tn
+    % Row Count 10 (+ 1)
+    % Row 4
+    \SetRowColor{LightBackground}
+    \seqsplit{extern}   & Indicates that the method is implemented externally \tn
+    % Row Count 12 (+ 2)
+    % Row 5
+    \SetRowColor{white}
+    new                 & Explicitly hides a member inherited from a base class \tn
+    % Row Count 14 (+ 2)
+    % Row 6
+    \SetRowColor{LightBackground}
+    \seqsplit{override} & Provides a new implementation of a virtual member inherited from a base class \tn
+    % Row Count 17 (+ 3)
+    % Row 7
+    \SetRowColor{white}
+    \seqsplit{partial}  & Defines partial classes, structs and methods throughout the same assembly \tn
+    % Row Count 20 (+ 3)
+    % Row 8
+    \SetRowColor{LightBackground}
+    \seqsplit{readonly} & Declares a field that can only be assigned values as part of the declaration or in a constructor in the same class \tn
+    % Row Count 24 (+ 4)
+    % Row 9
+    \SetRowColor{white}
+    \seqsplit{sealed}   & Specifies that a class cannot be inherited \tn
+    % Row Count 26 (+ 2)
+    % Row 10
+    \SetRowColor{LightBackground}
+    \seqsplit{static}   & Declares a member that belongs to the type itself instead of to a specific object \tn
+    % Row Count 29 (+ 3)
+    % Row 11
+    \SetRowColor{white}
+    \seqsplit{unsafe}   & Declares an unsafe context \tn
+    % Row Count 30 (+ 1)
+  \end{tabularx}
+  \par\addvspace{1.3em}
+
+  \vfill
+  \columnbreak
+  \begin{tabularx}{8.4cm}{x{1.36 cm} x{6.64 cm} }
+    \SetRowColor{DarkBackground}
+    \mymulticolumn{2}{x{8.4cm}}{\textbf{\textcolor{white}{Other Modifiers (cont)}}}  \tn
+    % Row 12
+    \SetRowColor{LightBackground}
+    \seqsplit{virtual}  & Declares a method or an accessor whose implementation can be changed by an overriding member in a derived class \tn
+    % Row Count 4 (+ 4)
+    % Row 13
+    \SetRowColor{white}
+    \seqsplit{volatile} & Indicates that a field can be modified in the program by something such as the operating system, the hardware, or a concurrently executing thread \tn
+    % Row Count 9 (+ 5)
+    \hhline{>{\arrayrulecolor{DarkBackground}}--}
+  \end{tabularx}
+  \par\addvspace{1.3em}
+
+  \begin{tabularx}{8.4cm}{p{0.88 cm} x{7.12 cm} }
+    \SetRowColor{DarkBackground}
+    \mymulticolumn{2}{x{8.4cm}}{\textbf{\textcolor{white}{Assignment Operators}}}  \tn
+    % Row 0
+    \SetRowColor{LightBackground}
+    =                             & Simple assignment \tn
+    % Row Count 1 (+ 1)
+    % Row 1
+    \SetRowColor{white}
+    +=                            & Addition assignment \tn
+    % Row Count 2 (+ 1)
+    % Row 2
+    \SetRowColor{LightBackground}
+    -=                            & Subtraction assignment \tn
+    % Row Count 3 (+ 1)
+    % Row 3
+    \SetRowColor{white}
+    *=                            & Multiplication assignment \tn
+    % Row Count 4 (+ 1)
+    % Row 4
+    \SetRowColor{LightBackground}
+    /=                            & Division assignment \tn
+    % Row Count 5 (+ 1)
+    % Row 5
+    \SetRowColor{white}
+    \%=                           & Remainder assignment \tn
+    % Row Count 6 (+ 1)
+    % Row 6
+    \SetRowColor{LightBackground}
+    \&=                           & AND assignment \tn
+    % Row Count 7 (+ 1)
+    % Row 7
+    \SetRowColor{white}
+    |=                            & OR assignment \tn
+    % Row Count 8 (+ 1)
+    % Row 8
+    \SetRowColor{LightBackground}
+    \textasciicircum{}            & XOR assignment \tn
+    % Row Count 9 (+ 1)
+    % Row 9
+    \SetRowColor{white}
+    \textless{}\textless{}=       & Left-shift assignment \tn
+    % Row Count 10 (+ 1)
+    % Row 10
+    \SetRowColor{LightBackground}
+    \textgreater{}\textgreater{}= & Right-shift assignment \tn
+    % Row Count 11 (+ 1)
+    \hhline{>{\arrayrulecolor{DarkBackground}}--}
+  \end{tabularx}
+  \par\addvspace{1.3em}
+
+  \begin{tabularx}{8.4cm}{p{0.8 cm} x{7.2 cm} }
+    \SetRowColor{DarkBackground}
+    \mymulticolumn{2}{x{8.4cm}}{\textbf{\textcolor{white}{Comparison Operators}}}  \tn
+    % Row 0
+    \SetRowColor{LightBackground}
+    \textless{}     & Less than \tn
+    % Row Count 1 (+ 1)
+    % Row 1
+    \SetRowColor{white}
+    \textgreater{}  & Greater than \tn
+    % Row Count 2 (+ 1)
+    % Row 2
+    \SetRowColor{LightBackground}
+    \textless{}=    & Less than or equal to \tn
+    % Row Count 3 (+ 1)
+    % Row 3
+    \SetRowColor{white}
+    \textgreater{}= & Greater than or equal to \tn
+    % Row Count 4 (+ 1)
+    % Row 4
+    \SetRowColor{LightBackground}
+    ==              & Equal to \tn
+    % Row Count 5 (+ 1)
+    % Row 5
+    \SetRowColor{white}
+    !=              & Not equal to \tn
+    % Row Count 6 (+ 1)
+    \hhline{>{\arrayrulecolor{DarkBackground}}--}
+  \end{tabularx}
+  \par\addvspace{1.3em}
+
+  \begin{tabularx}{8.4cm}{p{0.8 cm} x{7.2 cm} }
+    \SetRowColor{DarkBackground}
+    \mymulticolumn{2}{x{8.4cm}}{\textbf{\textcolor{white}{Arithmetic Operators}}}  \tn
+    % Row 0
+    \SetRowColor{LightBackground}
+    +    & Add numbers \tn
+    % Row Count 1 (+ 1)
+    % Row 1
+    \SetRowColor{white}
+    -    & Subtract numbers \tn
+    % Row Count 2 (+ 1)
+    % Row 2
+    \SetRowColor{LightBackground}
+    *    & Multiply numbers \tn
+    % Row Count 3 (+ 1)
+    % Row 3
+    \SetRowColor{white}
+    /    & Divide numbers \tn
+    % Row Count 4 (+ 1)
+    % Row 4
+    \SetRowColor{LightBackground}
+    \%   & Compute remainder of division of numbers \tn
+    % Row Count 6 (+ 2)
+    % Row 5
+    \SetRowColor{white}
+    ++   & Increases integer value by 1 \tn
+    % Row Count 7 (+ 1)
+    % Row 6
+    \SetRowColor{LightBackground}
+    -{}- & Decreases integer value by 1 \tn
+    % Row Count 8 (+ 1)
+    \hhline{>{\arrayrulecolor{DarkBackground}}--}
+  \end{tabularx}
+  \par\addvspace{1.3em}
+
+  \begin{tabularx}{8.4cm}{p{0.8 cm} x{7.2 cm} }
+    \SetRowColor{DarkBackground}
+    \mymulticolumn{2}{x{8.4cm}}{\textbf{\textcolor{white}{Logical and Bitwise Operators}}}  \tn
+    % Row 0
+    \SetRowColor{LightBackground}
+    \&\&                         & Logical AND \tn
+    % Row Count 1 (+ 1)
+    % Row 1
+    \SetRowColor{white}
+    ||                           & Logical OR \tn
+    % Row Count 2 (+ 1)
+    % Row 2
+    \SetRowColor{LightBackground}
+    !                            & Logical NOT \tn
+    % Row Count 3 (+ 1)
+    % Row 3
+    \SetRowColor{white}
+    \&                           & Binary AND \tn
+    % Row Count 4 (+ 1)
+    % Row 4
+    \SetRowColor{LightBackground}
+    |                            & Binary OR \tn
+    % Row Count 5 (+ 1)
+    % Row 5
+    \SetRowColor{white}
+    \textasciicircum{}           & Binary XOR \tn
+    % Row Count 6 (+ 1)
+    % Row 6
+    \SetRowColor{LightBackground}
+    \textasciitilde{}            & Binary Ones Complement \tn
+    % Row Count 7 (+ 1)
+    % Row 7
+    \SetRowColor{white}
+    \textless{}\textless{}       & Binary Left Shift \tn
+    % Row Count 8 (+ 1)
+    % Row 8
+    \SetRowColor{LightBackground}
+    \textgreater{}\textgreater{} & Binary Right Shift \tn
+    % Row Count 9 (+ 1)
+    \hhline{>{\arrayrulecolor{DarkBackground}}--}
+  \end{tabularx}
+  \par\addvspace{1.3em}
+
+  \begin{tabularx}{8.4cm}{x{1.36 cm} x{6.64 cm} }
+    \SetRowColor{DarkBackground}
+    \mymulticolumn{2}{x{8.4cm}}{\textbf{\textcolor{white}{Other Operators}}}  \tn
+    % Row 0
+    \SetRowColor{LightBackground}
+    \seqsplit{sizeof()} & Returns the size of a data type \tn
+    % Row Count 2 (+ 2)
+    % Row 1
+    \SetRowColor{white}
+    \seqsplit{typeof()} & Returns the type of a class \tn
+    % Row Count 4 (+ 2)
+    % Row 2
+    \SetRowColor{LightBackground}
+    \&                  & Returns the address of a variable \tn
+    % Row Count 5 (+ 1)
+    % Row 3
+    \SetRowColor{white}
+    *                   & Pointer to a variable \tn
+    % Row Count 6 (+ 1)
+    % Row 4
+    \SetRowColor{LightBackground}
+    ? :                 & Conditional expression \tn
+    % Row Count 7 (+ 1)
+    % Row 5
+    \SetRowColor{white}
+    is                  & Determines whether an object is of a specific type \tn
+    % Row Count 9 (+ 2)
+    % Row 6
+    \SetRowColor{LightBackground}
+    as                  & Cast without raising an exception if the cast fails \tn
+    % Row Count 11 (+ 2)
+    \hhline{>{\arrayrulecolor{DarkBackground}}--}
+  \end{tabularx}
+  \par\addvspace{1.3em}
+
+
+  % That's all folks
+\end{multicols*}
+
+\end{document}

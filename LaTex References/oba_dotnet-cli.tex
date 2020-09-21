@@ -1,0 +1,490 @@
+\documentclass[10pt,a4paper]{article}
+
+% Packages
+\usepackage{fancyhdr}           % For header and footer
+\usepackage{multicol}           % Allows multicols in tables
+\usepackage{tabularx}           % Intelligent column widths
+\usepackage{tabulary}           % Used in header and footer
+\usepackage{hhline}             % Border under tables
+\usepackage{graphicx}           % For images
+\usepackage{xcolor}             % For hex colours
+%\usepackage[utf8x]{inputenc}    % For unicode character support
+\usepackage[T1]{fontenc}        % Without this we get weird character replacements
+\usepackage{colortbl}           % For coloured tables
+\usepackage{setspace}           % For line height
+\usepackage{lastpage}           % Needed for total page number
+\usepackage{seqsplit}           % Splits long words.
+%\usepackage{opensans}          % Can't make this work so far. Shame. Would be lovely.
+\usepackage[normalem]{ulem}     % For underlining links
+% Most of the following are not required for the majority
+% of cheat sheets but are needed for some symbol support.
+\usepackage{amsmath}            % Symbols
+\usepackage{MnSymbol}           % Symbols
+\usepackage{wasysym}            % Symbols
+%\usepackage[english,german,french,spanish,italian]{babel}              % Languages
+
+% Document Info
+\author{Olcay Bayram (oba)}
+\pdfinfo{
+  /Title (dotnet-cli.pdf)
+  /Creator (Cheatography)
+  /Author (Olcay Bayram (oba))
+  /Subject (dotnet cli Cheat Sheet)
+}
+
+% Lengths and widths
+\addtolength{\textwidth}{6cm}
+\addtolength{\textheight}{-1cm}
+\addtolength{\hoffset}{-3cm}
+\addtolength{\voffset}{-2cm}
+\setlength{\tabcolsep}{0.2cm} % Space between columns
+\setlength{\headsep}{-12pt} % Reduce space between header and content
+\setlength{\headheight}{85pt} % If less, LaTeX automatically increases it
+\renewcommand{\footrulewidth}{0pt} % Remove footer line
+\renewcommand{\headrulewidth}{0pt} % Remove header line
+\renewcommand{\seqinsert}{\ifmmode\allowbreak\else\-\fi} % Hyphens in seqsplit
+% This two commands together give roughly
+% the right line height in the tables
+\renewcommand{\arraystretch}{1.3}
+\onehalfspacing
+
+% Commands
+\newcommand{\SetRowColor}[1]{\noalign{\gdef\RowColorName{#1}}\rowcolor{\RowColorName}} % Shortcut for row colour
+\newcommand{\mymulticolumn}[3]{\multicolumn{#1}{>{\columncolor{\RowColorName}}#2}{#3}} % For coloured multi-cols
+\newcolumntype{x}[1]{>{\raggedright}p{#1}} % New column types for ragged-right paragraph columns
+\newcommand{\tn}{\tabularnewline} % Required as custom column type in use
+
+% Font and Colours
+\definecolor{HeadBackground}{HTML}{333333}
+\definecolor{FootBackground}{HTML}{666666}
+\definecolor{TextColor}{HTML}{333333}
+\definecolor{DarkBackground}{HTML}{0250C5}
+\definecolor{LightBackground}{HTML}{D3E1F5}
+\renewcommand{\familydefault}{\sfdefault}
+\color{TextColor}
+
+% Header and Footer
+\pagestyle{fancy}
+\fancyhead{} % Set header to blank
+\fancyfoot{} % Set footer to blank
+\fancyhead[L]{
+\noindent
+\begin{multicols}{3}
+\begin{tabulary}{5.8cm}{C}
+    \SetRowColor{DarkBackground}
+    \vspace{-7pt}
+    {\parbox{\dimexpr\textwidth-2\fboxsep\relax}{\noindent
+        \hspace*{-6pt}\includegraphics[width=5.8cm]{/web/www.cheatography.com/public/images/cheatography_logo.pdf}}
+    }
+\end{tabulary}
+\columnbreak
+\begin{tabulary}{11cm}{L}
+    \vspace{-2pt}\large{\bf{\textcolor{DarkBackground}{\textrm{dotnet cli Cheat Sheet}}}} \\
+    \normalsize{by \textcolor{DarkBackground}{Olcay Bayram (oba)} via \textcolor{DarkBackground}{\uline{cheatography.com/64093/cs/16212/}}}
+\end{tabulary}
+\end{multicols}}
+
+\fancyfoot[L]{ \footnotesize
+\noindent
+\begin{multicols}{3}
+\begin{tabulary}{5.8cm}{LL}
+  \SetRowColor{FootBackground}
+  \mymulticolumn{2}{p{5.377cm}}{\bf\textcolor{white}{Cheatographer}}  \\
+  \vspace{-2pt}Olcay Bayram (oba) \\
+  \uline{cheatography.com/oba} \\
+        \uline{\seqsplit{en}.otomatikmuhendis.com}
+  \end{tabulary}
+\vfill
+\columnbreak
+\begin{tabulary}{5.8cm}{L}
+  \SetRowColor{FootBackground}
+  \mymulticolumn{1}{p{5.377cm}}{\bf\textcolor{white}{Cheat Sheet}}  \\
+   \vspace{-2pt}Published 30th June, 2018.\\
+   Updated 30th June, 2018.\\
+   Page {\thepage} of \pageref{LastPage}.
+\end{tabulary}
+\vfill
+\columnbreak
+\begin{tabulary}{5.8cm}{L}
+  \SetRowColor{FootBackground}
+  \mymulticolumn{1}{p{5.377cm}}{\bf\textcolor{white}{Sponsor}}  \\
+  \SetRowColor{white}
+  \vspace{-5pt}
+  %\includegraphics[width=48px,height=48px]{dave.jpeg}
+  Measure your website readability!\\
+  www.readability-score.com
+\end{tabulary}
+\end{multicols}}
+
+
+
+
+\begin{document}
+\raggedright
+\raggedcolumns
+
+% Set font size to small. Switch to any value
+% from this page to resize cheat sheet text:
+% www.emerson.emory.edu/services/latex/latex_169.html
+\footnotesize % Small font.
+
+\begin{multicols*}{3}
+
+\begin{tabularx}{5.377cm}{x{1.69218 cm} x{3.28482 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{dotnet new}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+`dotnet new sln` & Solution file \tn 
+% Row Count 2 (+ 2)
+% Row 1
+\SetRowColor{white}
+`dotnet new console` & Console application \tn 
+% Row Count 4 (+ 2)
+% Row 2
+\SetRowColor{LightBackground}
+`dotnet new classlib` & Class library \tn 
+% Row Count 6 (+ 2)
+% Row 3
+\SetRowColor{white}
+`dotnet new mvc` & ASP.NET Core Web App (Model-View-Controller) \tn 
+% Row Count 8 (+ 2)
+% Row 4
+\SetRowColor{LightBackground}
+`dotnet new xunit` & xUnit test project \tn 
+% Row Count 10 (+ 2)
+% Row 5
+\SetRowColor{white}
+`dotnet new -l` & Obtain a list of the available templates \tn 
+% Row Count 12 (+ 2)
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{2.4885 cm} x{2.4885 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{dotnet sln}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+`dotnet sln list` & List all projects in a solution file \tn 
+% Row Count 2 (+ 2)
+% Row 1
+\SetRowColor{white}
+`dotnet sln todo.sln add \seqsplit{todo-app/todo-app.csproj`} & Add a C\# project to a solution \tn 
+% Row Count 5 (+ 3)
+% Row 2
+\SetRowColor{LightBackground}
+`dotnet sln todo.sln remove \seqsplit{todo-app/todo-app.csproj`} & Remove a C\# project from a solution \tn 
+% Row Count 8 (+ 3)
+% Row 3
+\SetRowColor{white}
+`dotnet sln todo.sln add **/*.csproj` & Add multiple C\# projects to a solution using a globbing pattern \tn 
+% Row Count 12 (+ 4)
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{2.4885 cm} x{2.4885 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{dotnet add}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+`dotnet add package Newtonsoft.Json` & Add {\emph{Newtonsoft.Json}} NuGet package to a project \tn 
+% Row Count 3 (+ 3)
+% Row 1
+\SetRowColor{white}
+`dotnet add reference lib1/lib1.csproj lib2/lib2.csproj` & Add multiple project references to the project in the current directory \tn 
+% Row Count 7 (+ 4)
+% Row 2
+\SetRowColor{LightBackground}
+`dotnet add app/app.csproj reference **/*.csproj` & Add multiple project references using a globbing pattern on Linux/Unix \tn 
+% Row Count 11 (+ 4)
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{X}
+\SetRowColor{DarkBackground}
+\mymulticolumn{1}{x{5.377cm}}{\bf\textcolor{white}{cb (copy)}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{} \tn 
+% Row Count 0 (+ 0)
+\hhline{>{\arrayrulecolor{DarkBackground}}-}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{2.4885 cm} x{2.4885 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{dotnet build}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+`dotnet build` & Build a project and all of its dependencies \tn 
+% Row Count 3 (+ 3)
+% Row 1
+\SetRowColor{white}
+`dotnet build -{}-configuration Release` & Build a project and its dependencies using Release configuration \tn 
+% Row Count 7 (+ 4)
+% Row 2
+\SetRowColor{LightBackground}
+`dotnet build -{}-runtime ubuntu.16.04-x64` & Build a project and its dependencies for a specific runtime (in this example, Ubuntu 16.04) \tn 
+% Row Count 12 (+ 5)
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\SetRowColor{LightBackground}
+\mymulticolumn{2}{x{5.377cm}}{Starting with .NET Core 2.0, you don't have to run `dotnet restore` because it's run implicitly.}  \tn 
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{2.4885 cm} x{2.4885 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{dotnet run}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+`dotnet run` & Run the project in the current directory \tn 
+% Row Count 2 (+ 2)
+% Row 1
+\SetRowColor{white}
+`dotnet run -{}-project \seqsplit{./projects/proj1/proj1.csproj`} & Run the specified project \tn 
+% Row Count 5 (+ 3)
+% Row 2
+\SetRowColor{LightBackground}
+`dotnet myapp.dll` & Run a framework-dependent app named `myapp.dll` \tn 
+% Row Count 8 (+ 3)
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{2.43873 cm} x{2.53827 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{dotnet clean}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+`dotnet clean` & Clean the output of a project \tn 
+% Row Count 2 (+ 2)
+% Row 1
+\SetRowColor{white}
+`dotnet clean -{}-configuration Release` & Clean a project built using the Release configuration \tn 
+% Row Count 5 (+ 3)
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\SetRowColor{LightBackground}
+\mymulticolumn{2}{x{5.377cm}}{Only the outputs created during the build are cleaned. Both intermediate ({\emph{obj}}) and final output ({\emph{bin}}) folders are cleaned.}  \tn 
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{X}
+\SetRowColor{DarkBackground}
+\mymulticolumn{1}{x{5.377cm}}{\bf\textcolor{white}{cb}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{} \tn 
+% Row Count 0 (+ 0)
+\hhline{>{\arrayrulecolor{DarkBackground}}-}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{2.4885 cm} x{2.4885 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{dotnet publish}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+`dotnet publish` & Publish the project in the current directory \tn 
+% Row Count 3 (+ 3)
+% Row 1
+\SetRowColor{white}
+`dotnet publish \textasciitilde{}/projects/app1/app1.csproj` & Publish the application using the specified project file \tn 
+% Row Count 6 (+ 3)
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\SetRowColor{LightBackground}
+\mymulticolumn{2}{x{5.377cm}}{The `dotnet publish` command's output is ready for deployment to a hosting system (for example, a server, PC, Mac, laptop) for execution.}  \tn 
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{2.14011 cm} x{2.83689 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{dotnet ef}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+`dotnet ef migrations add` & Add a new migration \tn 
+% Row Count 2 (+ 2)
+% Row 1
+\SetRowColor{white}
+`dotnet ef migrations list` & List available migrations \tn 
+% Row Count 4 (+ 2)
+% Row 2
+\SetRowColor{LightBackground}
+`dotnet ef migrations remove` & Remove the last migration \tn 
+% Row Count 6 (+ 2)
+% Row 3
+\SetRowColor{white}
+`dotnet ef migrations script` & Generate a SQL script from migrations \tn 
+% Row Count 8 (+ 2)
+% Row 4
+\SetRowColor{LightBackground}
+`dotnet ef database update` & Update the database to a specified migration \tn 
+% Row Count 10 (+ 2)
+% Row 5
+\SetRowColor{white}
+`dotnet ef database drop` & Drop the database \tn 
+% Row Count 12 (+ 2)
+% Row 6
+\SetRowColor{LightBackground}
+`dotnet ef dbcontext list` & List available DbContext types \tn 
+% Row Count 14 (+ 2)
+% Row 7
+\SetRowColor{white}
+`dotnet ef dbcontext info` & Get information about a DbContext type \tn 
+% Row Count 16 (+ 2)
+% Row 8
+\SetRowColor{LightBackground}
+`dotnet ef dbcontext scaffold` & Scaffolds a DbContext and entity types for a database \tn 
+% Row Count 19 (+ 3)
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{X}
+\SetRowColor{DarkBackground}
+\mymulticolumn{1}{x{5.377cm}}{\bf\textcolor{white}{cb (copy)}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{} \tn 
+% Row Count 0 (+ 0)
+\hhline{>{\arrayrulecolor{DarkBackground}}-}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{2.4885 cm} x{2.4885 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{dotnet pack}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+`dotnet pack` & Build the project and create NuGet packages \tn 
+% Row Count 3 (+ 3)
+% Row 1
+\SetRowColor{white}
+`dotnet pack -{}-no-build -{}-output nupkgs` & Pack the project in the current directory into the {\emph{nupkgs}} folder and skip the build step \tn 
+% Row Count 8 (+ 5)
+% Row 2
+\SetRowColor{LightBackground}
+`dotnet pack \seqsplit{/p:PackageVersion=2.1.0`} & Set the package version to {\emph{2.1.0}} with the {\emph{PackageVersion}} MSBuild property \tn 
+% Row Count 12 (+ 4)
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{2.4885 cm} x{2.4885 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{dotnet nuget}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+`dotnet nuget locals –l all` & Display the paths of all the local cache directories \tn 
+% Row Count 3 (+ 3)
+% Row 1
+\SetRowColor{white}
+`dotnet nuget push foo.nupkg -k \seqsplit{4003d786-cc37-4004-bfdf-c4f3e8ef9b3a`} & Push {\emph{foo.nupkg}} to the default push source, specifying an API key \tn 
+% Row Count 7 (+ 4)
+% Row 2
+\SetRowColor{LightBackground}
+`dotnet nuget delete \seqsplit{Microsoft.AspNetCore.Mvc} 1.0 -{}-non-interactive` & Delete version 1.0 of package {\emph{Microsoft.AspNetCore.Mvc}}, not prompting user for credentials or other input \tn 
+% Row Count 13 (+ 6)
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{2.4885 cm} x{2.4885 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{dotnet remove}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+`dotnet remove package Newtonsoft.Json` & Remove {\emph{Newtonsoft.Json}} NuGet package from a project in the current directory \tn 
+% Row Count 4 (+ 4)
+% Row 1
+\SetRowColor{white}
+`dotnet remove reference lib/lib.csproj` & Remove a project reference from the current project \tn 
+% Row Count 7 (+ 3)
+% Row 2
+\SetRowColor{LightBackground}
+`dotnet remove app/app.csproj reference **/*.csproj` & Remove multiple project references using a glob pattern on Unix/Linux \tn 
+% Row Count 11 (+ 4)
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{X}
+\SetRowColor{DarkBackground}
+\mymulticolumn{1}{x{5.377cm}}{\bf\textcolor{white}{cb}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{} \tn 
+% Row Count 0 (+ 0)
+\hhline{>{\arrayrulecolor{DarkBackground}}-}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{x{1.84149 cm} x{3.13551 cm} }
+\SetRowColor{DarkBackground}
+\mymulticolumn{2}{x{5.377cm}}{\bf\textcolor{white}{etc.}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+`dotnet help` & Show more detailed documentation online for the command \tn 
+% Row Count 3 (+ 3)
+% Row 1
+\SetRowColor{white}
+`dotnet migrate` & Migrate a Preview 2 .NET Core project to a .NET Core SDK 1.0 project \tn 
+% Row Count 6 (+ 3)
+% Row 2
+\SetRowColor{LightBackground}
+`dotnet msbuild` & Provides access to a fully functional MSBuild \tn 
+% Row Count 8 (+ 2)
+% Row 3
+\SetRowColor{white}
+`dotnet test` & Run the tests in the project in the current directory \tn 
+% Row Count 11 (+ 3)
+% Row 4
+\SetRowColor{LightBackground}
+`dotnet list reference` & List the project references for the project in the current directory \tn 
+% Row Count 14 (+ 3)
+\hhline{>{\arrayrulecolor{DarkBackground}}--}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+\begin{tabularx}{5.377cm}{X}
+\SetRowColor{DarkBackground}
+\mymulticolumn{1}{x{5.377cm}}{\bf\textcolor{white}{Environment variables}}  \tn
+% Row 0
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{DOTNET\_PACKAGES} \tn 
+\mymulticolumn{1}{x{5.377cm}}{\hspace*{6 px}\rule{2px}{6px}\hspace*{6 px}The primary package cache.} \tn 
+% Row Count 2 (+ 2)
+% Row 1
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{DOTNET\_SERVICING} \tn 
+\mymulticolumn{1}{x{5.377cm}}{\hspace*{6 px}\rule{2px}{6px}\hspace*{6 px}Specifies the location of the servicing index to use by the shared host when loading the runtime.} \tn 
+% Row Count 6 (+ 4)
+% Row 2
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{\seqsplit{DOTNET\_CLI\_TELEMETRY\_OPTOUT}} \tn 
+\mymulticolumn{1}{x{5.377cm}}{\hspace*{6 px}\rule{2px}{6px}\hspace*{6 px}Specifies whether data about the .NET Core tools usage is collected and sent to Microsoft.} \tn 
+% Row Count 9 (+ 3)
+% Row 3
+\SetRowColor{white}
+\mymulticolumn{1}{x{5.377cm}}{DOTNET\_MULTILEVEL\_LOOKUP} \tn 
+\mymulticolumn{1}{x{5.377cm}}{\hspace*{6 px}\rule{2px}{6px}\hspace*{6 px}Specifies whether .NET Core runtime, shared framework, or SDK are resolved from the global location.} \tn 
+% Row Count 13 (+ 4)
+% Row 4
+\SetRowColor{LightBackground}
+\mymulticolumn{1}{x{5.377cm}}{\seqsplit{DOTNET\_ROLL\_FORWARD\_ON\_NO\_CANDIDATE\_FX}} \tn 
+\mymulticolumn{1}{x{5.377cm}}{\hspace*{6 px}\rule{2px}{6px}\hspace*{6 px}Disables minor version roll forward. For more information, see \{\{link="https://docs.microsoft.com/en-us/dotnet/core/whats-new/dotnet-core-2-1\#roll-forward"\}\}Roll forward\{\{/link\}\}.} \tn 
+% Row Count 18 (+ 5)
+\hhline{>{\arrayrulecolor{DarkBackground}}-}
+\end{tabularx}
+\par\addvspace{1.3em}
+
+
+% That's all folks
+\end{multicols*}
+
+\end{document}
