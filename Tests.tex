@@ -1,0 +1,275 @@
+\documentclass[10pt,letter,landscape]{article}
+%\usepackage[utf8]{inputenc}
+
+
+\usepackage[landscape,margin=1cm]{geometry}
+\usepackage[english]{babel}
+\usepackage{fancyhdr}           % For header and footer
+\usepackage{multicol}           % Allows multicols in tables
+\usepackage{tabularx}           % Intelligent column widths
+\usepackage{tabulary}           % Used in header and footer
+\usepackage{hhline}             % Border under tables
+\usepackage{graphicx}           % For images
+\usepackage{xcolor}             % For hex colours
+\usepackage[utf8x]{inputenc}    % For unicode character support
+\usepackage[T1]{fontenc}        % Without this we get weird character replacements
+\usepackage{colortbl}           % For coloured tables
+\usepackage{setspace}           % For line height
+\usepackage{lastpage}           % Needed for total page number
+\usepackage{seqsplit}           % Splits long words.
+%\usepackage{opensans}          % Can't make this work so far. Shame. Would be lovely.
+\usepackage[normalem]{ulem}     % For underlining links
+% Most of the following are not required for the majority
+% of cheat sheets but are needed for some symbol support.
+\usepackage{amsmath}            % Symbols
+\usepackage{MnSymbol}           % Symbols
+\usepackage{wasysym}            % Symbols
+\usepackage{textpos}
+
+
+\usepackage[default]{raleway}
+\usepackage{fontawesome}
+\usepackage[T1]{fontenc}
+\usepackage{incgraph}
+\usepackage{tcolorbox}
+
+\usepackage{enumitem}
+\usepackage{lipsum}
+\usepackage{hyperref}
+
+% Colors from paletton.com Base 277553 (Hue 195°), Tetrad, 90° Distance, Shades default
+\definecolor{PrimaryMid}{HTML}{277553} %Primary Color
+\definecolor{PrimaryDark}{HTML}{0F5839}
+\definecolor{PrimaryDarker}{HTML}{003B22}
+\definecolor{PrimaryLight}{HTML}{499273}
+\definecolor{PrimaryLighter}{HTML}{75AF96}
+
+\definecolor{SecondaryRMid}{HTML}{4B2D74} %Secondary Color
+\definecolor{SecondaryRDark}{HTML}{311557}
+\definecolor{SecondaryRDarker}{HTML}{1C053A}
+\definecolor{SecondaryRLight}{HTML}{6B4E90}
+\definecolor{SecondaryRLighter}{HTML}{8F78AD}
+
+\definecolor{SecondaryLMid}{HTML}{ABA039} %Secondary Color
+\definecolor{SecondaryLDark}{HTML}{817716}
+\definecolor{SecondaryLDarker}{HTML}{564E00}
+\definecolor{SecondaryLLight}{HTML}{D5CB6A}
+\definecolor{SecondaryLLighter}{HTML}{FFF7AA}
+
+\definecolor{ComplementaryMid}{HTML}{AA5939} %Complementary Color
+\definecolor{ComplementaryDark}{HTML}{803315}
+\definecolor{ComplementaryDarker}{HTML}{551800}
+\definecolor{ComplementaryLight}{HTML}{D4886A}
+\definecolor{ComplementaryLighter}{HTML}{FFC2AA}
+
+\definecolor{subColorboxStyle}{gray}{0.60}
+\colorlet{xx}{PrimaryMid}
+
+% tcolorbox style definitions
+\tcbuselibrary{most,listingsutf8}
+
+\tcbset{
+    tcbox width=auto,
+    left=1mm,
+    top=1mm,
+    bottom=1mm,
+    right=1mm,
+    boxsep=1mm,
+    middle=1pt
+}
+
+\newenvironment{mainColorboxStyle}[2]{
+    \begin{tcolorbox}[
+        grow to left by=-1em,
+        grow to right by=-1em,
+        capture=minipage,
+        fonttitle=\large\bfseries,
+        enhanced jigsaw,
+        boxsep=1mm,
+        colback=#1!30!white,
+        on line,
+        tcbox width=auto,
+        toptitle=0mm,
+        colframe=#1,
+        opacityback=0.7,
+        nobeforeafter,
+        title=#2
+    ]
+}
+{\end{tcolorbox}\\[0.2em]}
+
+\newenvironment{subColorboxStyle}[2]{
+    \begin{tcolorbox}[
+        capture=minipage,
+        fonttitle=\normalsize\bfseries,
+        enhanced jigsaw,
+        boxsep=1mm,
+        colback=#1!30!white,
+        on line,
+        tcbox width=auto,
+        left=0.3em,
+        top=1mm,
+        toptitle=0mm,
+        colframe=#1,
+        opacityback=0.7,
+        nobeforeafter,
+        title=#2
+    ]\footnotesize
+}{\normalsize\end{tcolorbox}\vspace{0.1em}}
+
+\newenvironment{multibox}[1]{
+    \begin{tcbraster}[
+        raster columns=#1,
+        raster equal height,
+        nobeforeafter,
+        raster column skip=1em,
+        raster left skip=1em,
+        raster right skip=1em
+    ]
+}
+{\end{tcbraster}}
+
+\newenvironment{textbox}[1]{
+    \begin{mainColorboxStyle}{PrimaryMid}{#1}
+}
+{\end{mainColorboxStyle}}
+
+
+% Define additional styles
+\newcommand{\multicolinterrupt}[1]{% Stuff to span both rows
+\setcounter{tempcolnum}{\col@number}
+\end{multicols}
+#1%
+\begin{multicols}{\value{tempcolnum}}
+}
+\newcommand{\bgupper}[3]{\colorbox{#1}{\color{#2}\huge\bfseries\MakeUppercase{#3}}}
+\newcommand{\bg}[3]{\colorbox{#1}{\bfseries\color{#2}#3}}
+
+\newcommand{\loremipsum}{Lorem ipsum dolor sit amet.}
+\newcommand{\SetRowColor}[1]{\noalign{\gdef\RowColorName{#1}}\rowcolor{\RowColorName}} % Shortcut for row colour
+\newcommand{\mymulticolumn}[3]{\multicolumn{#1}{>{\columncolor{\RowColorName}}#2}{#3}} % For coloured multi-cols
+
+% Document Info
+\title{\color{PrimaryDarker}Cheatsheet Template}
+\author{Casey J. Sullivan}
+\date{September 2020}
+\pdfinfo{
+  /Title (C\# Cheat Sheet.pdf)
+  /Creator (SullTec)
+  /Author (Casey J. Sullivan)
+  /Subject (C\# Cheat Sheet)
+}
+
+% Header and Footer
+\pagestyle{fancy}
+
+\fancyhead{} % Set header to blank
+\fancyhead[L]{
+  \noindent
+  \begin{multicols}{1}
+    \columnbreak
+    \begin{tabulary}{11cm}{L}
+      \vspace{-2pt}\large{\textbf{\textcolor{PrimaryDark}{\textrm{C\# Cheat Sheet}}}} 
+    \end{tabulary}
+  \end{multicols}
+}
+
+\fancyfoot{} % Set footer to blank
+\fancyfoot[L]{
+  \footnotesize
+  \noindent
+  \begin{multicols}{1}
+    \begin{tabulary}{11cm}{L}
+      \SetRowColor{ComplementaryLighter}
+      \mymulticolumn{0}{p{11cm}}{
+        \textbf{\textcolor{black}{Cheat Sheet}}
+        \textcolor{lightgray}{by} 
+        \textcolor{black}{Casey J. Sullivan}
+      }  \\
+      \vspace{-2pt}Page {\thepage} of \pageref{LastPage}.
+    \end{tabulary}
+  \end{multicols}
+}
+
+\begin{document}
+\raggedright
+\small
+\begin{multicols}{3}
+
+    %\section{Overview} %Creates a section title "#  Name"
+
+
+    \begin{textbox}{Naming Conventions}
+        Naming Conventions
+        \begin{quote}
+            \small\textbf{this is text}
+        \end{quote}
+    \end{textbox}
+    \begin{textbox}{Statements}
+        \begin{quote}
+        \end{quote}
+    \end{textbox}
+    \begin{textbox}{Comments}
+        \begin{quote}
+        \end{quote}
+    \end{textbox}
+    \begin{textbox}{Data Types}
+        \bgupper{PrimaryLighter}{black}{DataTypes}\\
+        \bg{PrimaryDark}{white}{SubTitle}
+        \begin{enumerate}
+            \item \emph{Declaration}: bla.
+            \item \emph{Immutable}: bla.
+            \item \emph{Mutable}: bla.
+        \end{enumerate}
+        %---------------------------------------------
+        \begin{multibox}{2} % number of boxes in a row
+            \begin{subColorboxStyle}{SecondaryRLight}{Variables}
+                one
+            \end{subColorboxStyle}
+            \begin{subColorboxStyle}{SecondaryLLight}{Constants}
+                two
+            \end{subColorboxStyle}
+            \begin{subColorboxStyle}{ComplementaryLight}{Scope}
+                three
+            \end{subColorboxStyle}
+            \begin{subColorboxStyle}{ComplementaryLight}{Scope}
+                four
+            \end{subColorboxStyle}
+        \end{multibox}
+    \end{textbox}
+    \begin{textbox}{Operators}
+        \begin{quote}
+        \end{quote}
+    \end{textbox}
+\end{multicols}
+\begin{textbox}{Statements}
+    \begin{quote}
+    \end{quote}
+\end{textbox}
+\begin{multicols}{2}
+    \begin{textbox}{Functions}
+        \begin{quote}
+        \end{quote}
+    \end{textbox}
+    \begin{textbox}{Classes}
+        \begin{quote}
+        \end{quote}
+    \end{textbox}
+    \begin{textbox}{Standard Stream I/O}
+        \begin{quote}
+        \end{quote}
+    \end{textbox}
+    \begin{textbox}{Command Line}
+        \begin{quote}
+        \end{quote}
+    \end{textbox}
+    \begin{textbox}{Execution of Commands}
+        \begin{quote}
+        \end{quote}
+    \end{textbox}
+    \begin{textbox}{Libraries}
+        \begin{quote}
+        \end{quote}
+    \end{textbox}
+\end{multicols}
+\end{document}
