@@ -1,8 +1,19 @@
-\documentclass[10pt,letter,landscape]{article}
+\documentclass[10pt,letterpaper,landscape]{article}
 %\usepackage[utf8]{inputenc}
 
-
-\usepackage[landscape,margin=1cm]{geometry}
+% http://texdoc.net/texmf-dist/doc/latex/geometry/geometry.pdf
+% https://www.overleaf.com/learn/latex/page_size_and_margins
+\usepackage[
+    landscape,
+    top=8mm,
+    bottom=20mm,
+    left=1mm,
+    right=1mm,
+    % margin=0.5cm,
+    headheight=5mm, % 57pt,
+    headsep=2mm,
+    footsep=2mm
+    ]{geometry}
 \usepackage[english]{babel}
 \usepackage{fancyhdr}           % For header and footer
 \usepackage{multicol}           % Allows multicols in tables
@@ -22,10 +33,13 @@
 % Most of the following are not required for the majority
 % of cheat sheets but are needed for some symbol support.
 \usepackage{amsmath}            % Symbols
-\usepackage{MnSymbol}           % Symbols
+% \let\mathdollar\relax
+% \usepackage{MnSymbol}           % Symbols
 \usepackage{wasysym}            % Symbols
 \usepackage{textpos}
 
+\usepackage{fontspec}[no-math]
+\setmainfont{JetBrains Mono Regular Nerd Font Complete Mono Windows Compatible}
 
 \usepackage[default]{raleway}
 \usepackage{fontawesome}
@@ -153,42 +167,39 @@
 \title{\color{PrimaryDarker}Cheatsheet Template}
 \author{Casey J. Sullivan}
 \date{September 2020}
-\pdfinfo{
-  /Title (C\# Cheat Sheet.pdf)
-  /Creator (SullTec)
-  /Author (Casey J. Sullivan)
-  /Subject (C\# Cheat Sheet)
-}
+% \pdfinfo{
+%  /Title (C\# Cheat Sheet.pdf)
+%  /Creator (SullTec)
+%  /Author (Casey J. Sullivan)
+%  /Subject (C\# Cheat Sheet)
+% }
 
 % Header and Footer
 \pagestyle{fancy}
 
+\renewcommand{\headrulewidth}{0pt} % Removes fancyhdr horizontal rule
 \fancyhead{} % Set header to blank
 \fancyhead[L]{
   \noindent
-  \begin{multicols}{1}
-    \columnbreak
-    \begin{tabulary}{11cm}{L}
-      \vspace{-2pt}\large{\textbf{\textcolor{PrimaryDark}{\textrm{C\# Cheat Sheet}}}} 
-    \end{tabulary}
-  \end{multicols}
+%  \begin{multicols}{1}
+%    \columnbreak
+%    \begin{tabulary}{11cm}{L}
+%      \vspace{-2pt}\large{\textbf{\textcolor{PrimaryDark}{\textrm{C\# => Cheat Sheet}}}} 
+\large{\textbf{\textcolor{PrimaryDark}{\textrm{C\# => Cheat Sheet}}}} 
+%    \end{tabulary}
+%  \end{multicols}
 }
 
 \fancyfoot{} % Set footer to blank
 \fancyfoot[L]{
-  \footnotesize
-  \noindent
-  \begin{multicols}{1}
-    \begin{tabulary}{11cm}{L}
-      \SetRowColor{ComplementaryLighter}
-      \mymulticolumn{0}{p{11cm}}{
-        \textbf{\textcolor{black}{Cheat Sheet}}
-        \textcolor{lightgray}{by} 
-        \textcolor{black}{Casey J. Sullivan}
-      }  \\
-      \vspace{-2pt}Page {\thepage} of \pageref{LastPage}.
-    \end{tabulary}
-  \end{multicols}
+    \footnotesize
+    \noindent
+    \vspace{-4cm}
+    \SetRowColor{ComplementaryLighter}
+    \textbf{\textcolor{black}{Cheat Sheet}}
+    \textcolor{lightgray}{by} 
+    \textcolor{black}{Casey J. Sullivan}
+    Page {\thepage} of \pageref{LastPage}.
 }
 
 \begin{document}
